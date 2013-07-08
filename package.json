@@ -1,7 +1,7 @@
 {
   "name": "angular-jquery",
   "version": "0.0.1",
-  "description": "jquery",
+  "description": "jQuery-like extension for AngularJS embedded jQLite",
   "keywords": [
     "angular"
   ],

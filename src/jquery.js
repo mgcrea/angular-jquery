@@ -10,7 +10,7 @@ angular.module('mgcrea.jquery', [])
     function jQuery(query) {
       var el = query instanceof HTMLElement ? jQLite(query) : jQLite(document.querySelectorAll(query));
       angular.forEach(jQuery.fn, function(fn, key) {
-        el[key] = fn.bind(el[0]);
+        (el.__proto__ || el)[key] = fn.bind(el[0]);
       });
       return el;
     }
@@ -25,6 +25,28 @@ angular.module('mgcrea.jquery', [])
         top: box.top + window.pageYOffset - docElem.clientTop,
         left: box.left + window.pageXOffset - docElem.clientLeft
       };
+    };
+
+    jQuery.fn.height = function(outer) {
+      var computedStyle = window.getComputedStyle(this);
+      var value = this.offsetHeight;
+      if(outer) {
+        value += parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
+      } else {
+        value -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom) + parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth);
+      }
+      return value;
+    };
+
+    jQuery.fn.width = function(outer) {
+      var computedStyle = window.getComputedStyle(this);
+      var value = this.offsetWidth;
+      if(outer) {
+        value += parseFloat(computedStyle.marginLeft) + parseFloat(computedStyle.marginRight);
+      } else {
+        value -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight) + parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
+      }
+      return value;
     };
 
     return jQuery;
@@ -43,15 +65,4 @@ angular.module('mgcrea.jquery', [])
       }
     }
     return [left, top];
-  })
-
-  .constant('jqHeight', function(elem, outer) {
-    var computedStyle = window.getComputedStyle(elem);
-    var value = elem.offsetHeight;
-    if(outer) {
-      value += parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
-    } else {
-      value -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom) + parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth);
-    }
-    return value;
   })*/
