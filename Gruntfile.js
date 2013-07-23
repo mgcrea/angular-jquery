@@ -139,23 +139,8 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: ['<%= yo.src %>/<%= pkg.name %>.js'],
-        dest: '<%= yo.dist %>/angular-<%= pkg.name %>.js'
-      }
-      // dist: {
-      //   files: {
-      //     '/.js': '/.js'
-      //   }
-      // }
-    },
-    concat: {
-      options: {
-        banner: '<%= meta.banner %>',
-        stripBanners: true
-      },
-      dist: {
-        src: ['<%= yo.src %>/<%= pkg.name %>.js'],
-        dest: '<%= yo.dist %>/angular-<%= pkg.name %>.js'
+        src: ['<%= yo.src %>/*.js'],
+        dest: '<%= yo.dist %>/<%= pkg.name %>.js'
       }
     },
     uglify: {
@@ -163,8 +148,8 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: '<%= yo.dist %>/angular-<%= pkg.name %>.min.js'
+        src: '<%= ngmin.dist.dest %>',
+        dest: '<%= yo.dist %>/<%= pkg.name %>.min.js'
       }
     }
   });
