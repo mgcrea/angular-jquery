@@ -2,22 +2,13 @@
 
 angular.module('mgcrea.jquery', [])
 
-  .factory('$', function() {
+  .provider('dimensions', function() {
 
-    var jQLite = angular.element;
-    var slice = Array.prototype.slice;
+    this.$get = function() {
+      return this;
+    };
 
-    function jQuery(query) {
-      var el = query instanceof HTMLElement ? jQLite(query) : jQLite(document.querySelectorAll(query));
-      angular.forEach(jQuery.fn, function(fn, key) {
-        (el.__proto__ || el)[key] = fn.bind(el[0]);
-      });
-      return el;
-    }
-
-    jQuery.fn = {};
-
-    jQuery.fn.offset = function() {
+    this.offset = function() {
       if(!this) return;
       var box = this.getBoundingClientRect();
       var docElem = this.ownerDocument.documentElement;
@@ -27,7 +18,7 @@ angular.module('mgcrea.jquery', [])
       };
     };
 
-    jQuery.fn.height = function(outer) {
+    this.height = function(outer) {
       var computedStyle = window.getComputedStyle(this);
       var value = this.offsetHeight;
       if(outer) {
@@ -38,7 +29,7 @@ angular.module('mgcrea.jquery', [])
       return value;
     };
 
-    jQuery.fn.width = function(outer) {
+    this.width = function(outer) {
       var computedStyle = window.getComputedStyle(this);
       var value = this.offsetWidth;
       if(outer) {
@@ -49,9 +40,52 @@ angular.module('mgcrea.jquery', [])
       return value;
     };
 
-    return jQuery;
+  })
+
+  .constant('debounce', function(fn, wait) {
+    var timeout, result;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        result = fn.apply(context, args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      return result;
+    };
+  })
+
+  .provider('jQuery', function(dimensionsProvider) {
+
+    var self = this;
+    var jQLite = angular.element;
+
+    this.fn = angular.extend({}, dimensionsProvider);
+
+    // angular.element = function() {
+    //   var el = jQLite.apply(this, arguments);
+    //   angular.forEach(dimensionsProvider, function(fn, key) {
+    //     if(key === '$get') return;
+    //     el[key] = fn.bind(el[0]);
+    //   });
+    //   return el;
+    // };
+
+    this.$get = function() {
+      delete self.fn.$get;
+      return function jQuery(query) {
+        var el = query instanceof HTMLElement ? query : document.querySelectorAll(query);
+        el = jQLite(el);
+        angular.forEach(self.fn, function(fn, key) {
+          el[key] = fn.bind(el[0]);
+        });
+        return el;
+      };
+    };
 
   });
+
 
 
 /*  .constant('jqPosition', function(obj) {
