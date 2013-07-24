@@ -4,7 +4,9 @@ jQuery-like extensions for AngularJS embedded jQLite
 
 ## Getting Started
 
-Download the [production version][min] or the [development version][max].
++ Install with bower, `bower install angular-jquery --save`
+
++ Or download the [production][min] or the [development][max] version.
 
 [min]: https://raw.github.com/mgcrea/angular-jquery/master/dist/angular-jquery.min.js
 [max]: https://raw.github.com/mgcrea/angular-jquery/master/dist/angular-jquery.js
