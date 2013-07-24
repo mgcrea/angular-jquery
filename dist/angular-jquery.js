@@ -1,3 +1,10 @@
+/**
+ * angular-jquery
+ * @version v0.2.1 - 2013-07-24
+ * @link https://github.com/mgcrea/angular-jquery
+ * @author Olivier Louvignes <olivier@mg-crea.com>
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
 'use strict';
 angular.module('mgcrea.jquery', []).provider('dimensions', function () {
   this.$get = function () {
