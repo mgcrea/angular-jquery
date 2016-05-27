@@ -1,6 +1,9 @@
 {
   "name": "angular-jquery",
   "version": "0.2.1",
+  "main": [
+    "dist/angular-jquery.js"
+  ],
   "dependencies": {
   },
   "devDependencies": {
