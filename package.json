@@ -2,6 +2,7 @@
   "name": "angular-jquery",
   "version": "0.2.1",
   "description": "jQuery-like extension for AngularJS embedded jQLite",
+  "main": "dist/angular-jquery.js",
   "keywords": [
     "angular"
   ],
