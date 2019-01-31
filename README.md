@@ -1,4 +1,6 @@
-# angular.jquery
+# angular-jquery
+
+**🚧 This module is deprecated and not maintained anymore 🚧**
 
 jQuery-like extensions for AngularJS embedded jQLite
 
